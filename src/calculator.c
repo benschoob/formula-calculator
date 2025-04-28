@@ -54,13 +54,28 @@ int main(void) {
 
             /* Get input */
             mvgetnstr(row - 1, 0, in, MAXEXPRESSIONSIZE);
+
+            /* Check for special commands */
+
+            /* Exit the program */
+            if (strcmp(in, ":x") == 0) {
+                endwin();
+                exit(0);
+            }
+            /* Switch to definition mode */
+            else if (strcmp(in, ":d") == 0) {
+                state = MODE_DEF;
+            }
+            else {
+            /* Parse the expression into infix form and evaluate it */
             infix_parse(in, out, MAXEXPRESSIONSIZE * 2);
-            snprintf(out, MAXEXPRESSIONSIZE * 2, "%f\n", calculate(out, MAXEXPRESSIONSIZE * 2));
+            snprintf(out, MAXEXPRESSIONSIZE * 2, "%s = %f\n", in, calculate(out, MAXEXPRESSIONSIZE * 2));
 
             mvaddstr(row - 3, 0, out);
 
             move(row - 1, 0);
             clrtoeol();
+            }
         }
         
         /* Definition mode */
