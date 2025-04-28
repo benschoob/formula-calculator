@@ -188,11 +188,11 @@ double calculate(char *f, int f_len) {
 
 }
 
-calc_variable define_var(char *name, double value) {
+calc_variable define_var(char *name, char *value) {
     calc_variable var;
 
     memcpy(var.name, name, MAXNAMELEN);
-    var.value = value;
+    memcpy(var.value, value, MAXEXPRESSIONSIZE);
 
     return var;
 }

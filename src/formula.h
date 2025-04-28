@@ -2,10 +2,11 @@
 #define _FORMULA_H_
 
 #define MAXNAMELEN 5
+#define MAXEXPRESSIONSIZE 256
 
 typedef struct {
     char name[MAXNAMELEN];
-    double value;
+    char value[MAXEXPRESSIONSIZE];
 } calc_variable;
 
 int infix_parse(char *in, char *out, int len);
