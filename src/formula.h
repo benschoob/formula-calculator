@@ -12,6 +12,6 @@ typedef struct {
 int infix_parse(char *in, char *out, int len);
 double calculate(char *f, int f_len);
 
-calc_variable parse_var(char *in);
+calc_variable *parse_var(char *in, int len);
 
 #endif

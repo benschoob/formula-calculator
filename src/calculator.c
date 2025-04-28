@@ -13,9 +13,14 @@
 #define GREEN_PAIR 1
 #define BLUE_PAIR 2
 
+#define MAXVARS 10
+
 int main(void) {
     char in[MAXEXPRESSIONSIZE];
     char out[MAXEXPRESSIONSIZE * 2];
+
+    calc_variable *vars[MAXVARS];
+    int var_index = 0;
 
     int row = 0;
     int col = 0;
@@ -41,6 +46,12 @@ int main(void) {
 
     for (;;) {
         getmaxyx(stdscr, row, col);
+
+        /* Print variables */
+        for (int i = 0; i < var_index; i++) {
+            snprintf(out, MAXEXPRESSIONSIZE * 2, "%s=%s", vars[i]->name, vars[i]->value);
+            mvaddstr(i, 0, out);
+        }
 
         /* Evaluation mode */
         if (state == MODE_EVAL) {
@@ -101,7 +112,14 @@ int main(void) {
             }
             else {
                 /* Define variable */
-
+                calc_variable *var = parse_var(in, strlen(in));
+                if (var == NULL) {
+                    /* TODO: print an error message */
+                }
+                else {
+                    vars[var_index] = var;
+                    var_index++;
+                }
             }
             move(row - 1, 0);
             clrtoeol();

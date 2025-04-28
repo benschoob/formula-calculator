@@ -191,11 +191,12 @@ double calculate(char *f, int f_len) {
 /**
  * Defines a variable with a name and an expression  
  */
-calc_variable define_var(char *name, char *value) {
-    calc_variable var;
+calc_variable *define_var(char *name, char *value) {
+    calc_variable *var;
+    var = malloc(sizeof(calc_variable));
 
-    memcpy(var.name, name, MAXNAMELEN);
-    memcpy(var.value, value, MAXEXPRESSIONSIZE);
+    memcpy(var->name, name, MAXNAMELEN);
+    memcpy(var->value, value, MAXEXPRESSIONSIZE);
 
     return var;
 }
@@ -203,20 +204,24 @@ calc_variable define_var(char *name, char *value) {
 /**
  * Parses a variable definition into a calc_variable
  */
-calc_variable parse_var(char *in) {
+calc_variable *parse_var(char *in, int len) {
     char name[MAXNAMELEN];
     char value[MAXEXPRESSIONSIZE];
 
     /* Get variable name */
     int i;
-    for (i = 0; i < MAXNAMELEN && in[i] != '='; i++) {
+    for (i = 0; i < len && i < MAXNAMELEN && in[i] != '='; i++) {
         name[i] = in[i];
     }
-    /* TODO: validate that variable name is correct and '=' was found */
+    name[i] = '\0';
+    /* validate that variable name is correct and '=' was found */
+    if (in[i] != '=') {
+        return NULL;
+    }
 
     i++; /* Skip the '=' */
     /* Get expression */
-    for(int j = 0; j < MAXEXPRESSIONSIZE && in[i + j] != '\0'; j++) {
+    for(int j = 0; i + j < len && j < MAXEXPRESSIONSIZE; j++) {
         value[j] = in[i + j];
     }
 
