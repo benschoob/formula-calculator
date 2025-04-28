@@ -188,6 +188,9 @@ double calculate(char *f, int f_len) {
 
 }
 
+/**
+ * Defines a variable with a name and an expression  
+ */
 calc_variable define_var(char *name, char *value) {
     calc_variable var;
 
@@ -195,4 +198,27 @@ calc_variable define_var(char *name, char *value) {
     memcpy(var.value, value, MAXEXPRESSIONSIZE);
 
     return var;
+}
+
+/**
+ * Parses a variable definition into a calc_variable
+ */
+calc_variable parse_var(char *in) {
+    char name[MAXNAMELEN];
+    char value[MAXEXPRESSIONSIZE];
+
+    /* Get variable name */
+    int i;
+    for (i = 0; i < MAXNAMELEN && in[i] != '='; i++) {
+        name[i] = in[i];
+    }
+    /* TODO: validate that variable name is correct and '=' was found */
+
+    i++; /* Skip the '=' */
+    /* Get expression */
+    for(int j = 0; j < MAXEXPRESSIONSIZE && in[i + j] != '\0'; j++) {
+        value[j] = in[i + j];
+    }
+
+    return define_var(name, value);
 }

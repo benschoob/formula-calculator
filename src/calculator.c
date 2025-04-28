@@ -71,10 +71,9 @@ int main(void) {
                 snprintf(out, MAXEXPRESSIONSIZE * 2, "%s = %f\n", in, calculate(out, MAXEXPRESSIONSIZE * 2));
 
                 mvaddstr(row - 3, 0, out);
-
-                move(row - 1, 0);
-                clrtoeol();
             }
+            move(row - 1, 0);
+            clrtoeol();
         }
         
         /* Definition mode */
@@ -98,13 +97,14 @@ int main(void) {
             }
             /* Switch to evaluation mode */
             else if (strcmp(in, ":e") == 0) {
-                state = MODE_DEF;
+                state = MODE_EVAL;
             }
             else {
                 /* Define variable */
 
             }
-
+            move(row - 1, 0);
+            clrtoeol();
         }
 
         refresh();
