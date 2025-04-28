@@ -12,4 +12,6 @@ This project depends on the `ncurses` library for text formatting. (https://linu
 - Type `:d` to switch to definition mode.
 
 ### Definition Mode
-- Not implemented yet, check back later.
+- You can define variables that can be used in equations in this mode. Variable definitions are written in the form `<name> = <expression>`. When used in execution mode the variable's name will be substituted for its associated expression.
+- Type `:x` to exit the program.
+- Type `:e` to return to evaluation mode.
