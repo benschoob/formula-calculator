@@ -110,6 +110,12 @@ int main(void) {
             else if (strcmp(in, ":e") == 0) {
                 state = MODE_EVAL;
             }
+            /* Clear all variables */
+            else if (strcmp(in, ":c") == 0) {
+                var_index = 0; /* Array is statically allocated so we don't need to free the data, just reset the stack pointer */
+                move(0, 0);
+                clrtobot();
+            }
             else {
                 /* Define variable */
                 calc_variable *var = parse_var(in, strlen(in));
