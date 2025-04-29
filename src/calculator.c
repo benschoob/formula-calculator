@@ -15,12 +15,12 @@
 
 #define MAXVARS 10
 
+calc_variable *vars[MAXVARS];
+int var_index = 0;
+
 int main(void) {
     char in[MAXEXPRESSIONSIZE];
     char out[MAXEXPRESSIONSIZE * 2];
-
-    calc_variable *vars[MAXVARS];
-    int var_index = 0;
 
     int row = 0;
     int col = 0;

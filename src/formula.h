@@ -6,7 +6,9 @@
 
 typedef struct {
     char name[MAXNAMELEN];
+    int name_len;
     char value[MAXEXPRESSIONSIZE];
+    int value_len;
 } calc_variable;
 
 int infix_parse(char *in, char *out, int len);
